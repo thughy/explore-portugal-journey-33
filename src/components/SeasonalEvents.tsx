@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Calendar, Music, Users, Umbrella, Sun } from 'lucide-react';
+import { Calendar, Music, Users, Umbrella, Sun, Leaf, Snowflake } from 'lucide-react';
 
 interface Event {
   name: string;
@@ -18,13 +18,13 @@ interface SeasonalEventsProps {
 const SeasonIcon = ({ season }: { season: string }) => {
   switch (season) {
     case 'spring':
-      return <div className="text-green-500 bg-green-50 p-2 rounded-full"><Sun size={20} /></div>;
+      return <div className="text-green-500 bg-green-50 p-2 rounded-full"><Leaf size={20} /></div>;
     case 'summer':
       return <div className="text-amber-500 bg-amber-50 p-2 rounded-full"><Sun size={20} /></div>;
     case 'autumn':
-      return <div className="text-orange-500 bg-orange-50 p-2 rounded-full"><Umbrella size={20} /></div>;
+      return <div className="text-orange-500 bg-orange-50 p-2 rounded-full"><Leaf size={20} /></div>;
     case 'winter':
-      return <div className="text-blue-500 bg-blue-50 p-2 rounded-full"><Umbrella size={20} /></div>;
+      return <div className="text-blue-500 bg-blue-50 p-2 rounded-full"><Snowflake size={20} /></div>;
     default:
       return <div className="text-gray-500 bg-gray-50 p-2 rounded-full"><Calendar size={20} /></div>;
   }

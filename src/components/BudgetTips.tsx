@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Euro, Coffee, Bus, Ticket, Utensils, Home } from 'lucide-react';
+import { Euro, Coffee, Bus, Ticket, Utensils, Home, Calendar, Navigation, Waves, Users } from 'lucide-react';
 
 interface Tip {
   title: string;
@@ -45,7 +45,7 @@ const BudgetTips: React.FC<BudgetTipsProps> = ({ destination, tips }) => {
       <div className="space-y-4">
         {tips.map((tip, index) => (
           <div key={index} className="flex items-start gap-3 pb-4 border-b border-gray-100 last:border-0 last:pb-0">
-            <div className="text-portugal-terracotta">
+            <div className="text-portugal-terracotta bg-portugal-terracotta/5 p-2 rounded-full">
               {tip.icon}
             </div>
             <div>
