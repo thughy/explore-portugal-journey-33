@@ -1,8 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SeasonalEvents from '@/components/SeasonalEvents';
+import BudgetTips from '@/components/BudgetTips';
 import { 
   MapPin, 
   Calendar, 
@@ -14,7 +15,14 @@ import {
   Hotel,
   Navigation,
   ArrowLeft,
-  ChevronRight
+  ChevronRight,
+  Coffee,
+  Bus,
+  Ticket,
+  Home,
+  Music,
+  Users,
+  Euro
 } from 'lucide-react';
 
 interface Destination {
@@ -247,6 +255,292 @@ const destinations: Record<string, Destination> = {
   }
 };
 
+const destinationEvents = {
+  'lisbon': [
+    {
+      name: "Festas de Lisboa (Festas dos Santos Populares)",
+      description: "Celebrações com música, sardinha grelhada e decorações coloridas por toda a cidade, com o ápice na noite de Santo Antônio.",
+      date: "Junho (especialmente dia 12-13)",
+      season: "summer",
+      icon: <Music />
+    },
+    {
+      name: "NOS Alive",
+      description: "Um dos maiores festivais de música de Portugal, com artistas internacionais e locais em vários palcos.",
+      date: "Julho",
+      season: "summer",
+      icon: <Music />
+    },
+    {
+      name: "Festival Internacional de Chocolate",
+      description: "Evento dedicado ao chocolate com degustações, demonstrações e esculturas de chocolate.",
+      date: "Fevereiro/Março",
+      season: "winter",
+      icon: <Utensils />
+    },
+    {
+      name: "Lisboa na Rua",
+      description: "Série de eventos culturais gratuitos, incluindo concertos, cinema ao ar livre e performances de arte.",
+      date: "Agosto/Setembro",
+      season: "summer",
+      icon: <Users />
+    }
+  ],
+  'porto': [
+    {
+      name: "Festa de São João",
+      description: "A maior festa da cidade com música ao vivo, comida de rua, fogos de artifício e a tradição de bater na cabeça dos outros com martelos de plástico ou alho-poró.",
+      date: "23-24 de Junho",
+      season: "summer",
+      icon: <Users />
+    },
+    {
+      name: "Essência do Vinho",
+      description: "O maior evento de vinhos de Portugal, com degustações, masterclasses e apresentações de produtores de todo o país.",
+      date: "Fevereiro",
+      season: "winter",
+      icon: <Utensils />
+    },
+    {
+      name: "NOS Primavera Sound",
+      description: "Festival de música alternativa com line-ups internacionais no Parque da Cidade.",
+      date: "Junho",
+      season: "spring",
+      icon: <Music />
+    },
+    {
+      name: "Natal no Porto",
+      description: "Iluminações festivas, mercados natalinos e a grande árvore de Natal na Avenida dos Aliados.",
+      date: "Dezembro",
+      season: "winter",
+      icon: <Users />
+    }
+  ],
+  'algarve': [
+    {
+      name: "Festival de Marisco de Olhão",
+      description: "Um dos maiores festivais gastronômicos do Algarve, com frutos do mar frescos, música ao vivo e artesanato local.",
+      date: "Agosto",
+      season: "summer",
+      icon: <Utensils />
+    },
+    {
+      name: "Festival Internacional de Escultura em Areia",
+      description: "Impressionantes esculturas de areia criadas por artistas de todo o mundo em Pêra.",
+      date: "Maio a Outubro",
+      season: "summer",
+      icon: <Users />
+    },
+    {
+      name: "Carnaval de Loulé",
+      description: "O maior carnaval do Algarve, com desfiles coloridos, fantasias e música.",
+      date: "Fevereiro/Março",
+      season: "winter",
+      icon: <Music />
+    },
+    {
+      name: "Festival Med",
+      description: "Festival de música dedicado a sons mediterrâneos e culturas do mundo em Loulé.",
+      date: "Junho/Julho",
+      season: "summer",
+      icon: <Music />
+    }
+  ],
+  'madeira': [
+    {
+      name: "Festa da Flor",
+      description: "Celebração da primavera com desfiles florais, exposições de flores e muitas atividades culturais.",
+      date: "Maio",
+      season: "spring",
+      icon: <Users />
+    },
+    {
+      name: "Ano Novo na Madeira",
+      description: "Espetáculo de fogos de artifício reconhecido pelo Guinness World Records como um dos maiores do mundo.",
+      date: "31 de Dezembro",
+      season: "winter",
+      icon: <Users />
+    },
+    {
+      name: "Festival do Atlântico",
+      description: "Combinação de competições de fogos de artifício e concertos nos finais de semana de junho.",
+      date: "Junho",
+      season: "summer",
+      icon: <Music />
+    },
+    {
+      name: "Festa do Vinho da Madeira",
+      description: "Celebração da colheita com demonstrações de vindima, degustações e folclore tradicional.",
+      date: "Agosto/Setembro",
+      season: "autumn",
+      icon: <Utensils />
+    }
+  ],
+  'azores': [
+    {
+      name: "Festas do Espírito Santo",
+      description: "Celebrações religiosas com procissões, música tradicional e refeições comunitárias em várias ilhas.",
+      date: "Maio a Setembro",
+      season: "summer",
+      icon: <Users />
+    },
+    {
+      name: "Semana do Mar",
+      description: "Festival marítimo na ilha do Faial com regatas, atividades náuticas e entretenimento.",
+      date: "Agosto",
+      season: "summer",
+      icon: <Waves />
+    },
+    {
+      name: "Festival da Maré de Agosto",
+      description: "Festival de música internacional na ilha de Santa Maria com uma localização à beira-mar deslumbrante.",
+      date: "Agosto",
+      season: "summer",
+      icon: <Music />
+    },
+    {
+      name: "Festa dos Baleeiros",
+      description: "Celebração da herança baleeira nas ilhas do Pico e Faial com corridas de barcos e eventos culturais.",
+      date: "Agosto",
+      season: "summer",
+      icon: <Users />
+    }
+  ]
+};
+
+const budgetTips = {
+  'lisbon': [
+    {
+      title: "Lisboa Card",
+      description: "Compre o Lisboa Card para entrada gratuita ou com desconto em mais de 35 atrações, além de transporte público ilimitado. Vale a pena para estadias de 2+ dias.",
+      icon: <Ticket size={20} />,
+      savingsLevel: "high"
+    },
+    {
+      title: "Almoços de Menu do Dia",
+      description: "Muitos restaurantes oferecem 'menu do dia' no almoço (12h-15h) que inclui entrada, prato principal, sobremesa e bebida por cerca de €10-15.",
+      icon: <Utensils size={20} />,
+      savingsLevel: "medium"
+    },
+    {
+      title: "Hospedagem em Bairros Alternativos",
+      description: "Em vez de ficar em Baixa ou Chiado, considere áreas como Graça ou Anjos, que são mais baratas e ainda bem conectadas.",
+      icon: <Home size={20} />,
+      savingsLevel: "high"
+    },
+    {
+      title: "Beba Café no Balcão",
+      description: "Um espresso (bica) consumido no balcão custa cerca de €0,70, enquanto sentado na mesa pode custar o dobro.",
+      icon: <Coffee size={20} />,
+      savingsLevel: "low"
+    }
+  ],
+  'porto': [
+    {
+      title: "Porto Card",
+      description: "O Porto Card oferece transporte gratuito e descontos em atrações por 1-4 dias. Faça as contas para ver se vale a pena para seu itinerário.",
+      icon: <Ticket size={20} />,
+      savingsLevel: "medium"
+    },
+    {
+      title: "Provas de Vinho Econômicas",
+      description: "Em vez das caves mais famosas, visite produtores menores como Augusto's ou Vinologia para provas mais baratas e muitas vezes mais personalizadas.",
+      icon: <Utensils size={20} />,
+      savingsLevel: "medium"
+    },
+    {
+      title: "Andante Tour 3",
+      description: "Compre o passe Andante Tour 3 para usar todo o transporte público por 72 horas, inclusive o trem para praias próximas.",
+      icon: <Bus size={20} />,
+      savingsLevel: "high"
+    },
+    {
+      title: "Francesinha nos Bairros",
+      description: "A famosa francesinha é mais barata fora das áreas turísticas. Experimente em Campanhã ou Boavista em vez do centro.",
+      icon: <Utensils size={20} />,
+      savingsLevel: "low"
+    }
+  ],
+  'algarve': [
+    {
+      title: "Visite Fora da Alta Temporada",
+      description: "Os preços no Algarve podem cair até 50% em maio/junho ou setembro/outubro, com clima ainda excelente para praia.",
+      icon: <Calendar size={20} />,
+      savingsLevel: "high"
+    },
+    {
+      title: "Praias Menos Conhecidas",
+      description: "Evite as praias mais famosas como Marinha ou Rocha e explore praias locais como Arrifes ou Coelha, que são igualmente bonitas.",
+      icon: <Waves size={20} />,
+      savingsLevel: "low"
+    },
+    {
+      title: "Mercados Locais",
+      description: "Compre frutas, legumes e peixe fresco nos mercados municipais em vez de supermercados turísticos. O de Olhão é excelente.",
+      icon: <Utensils size={20} />,
+      savingsLevel: "medium"
+    },
+    {
+      title: "Aluguéis de Carro Antecipados",
+      description: "Reserve seu carro com meses de antecedência. Os preços podem triplicar durante o verão quando há escassez.",
+      icon: <Navigation size={20} />,
+      savingsLevel: "high"
+    }
+  ],
+  'madeira': [
+    {
+      title: "Passe de Ônibus Giro",
+      description: "Compre o passe Giro para transporte ilimitado em Funchal por 1-7 dias, muito mais barato que táxis.",
+      icon: <Bus size={20} />,
+      savingsLevel: "medium"
+    },
+    {
+      title: "Teleférico + Jardim Botânico",
+      description: "Compre o bilhete combinado para o teleférico e Jardim Botânico, que oferece desconto de cerca de 20% em relação aos ingressos separados.",
+      icon: <Ticket size={20} />,
+      savingsLevel: "medium"
+    },
+    {
+      title: "Piqueniques nas Levadas",
+      description: "Leve almoço para suas caminhadas nas levadas. Há áreas de piquenique gratuitas com vistas espetaculares.",
+      icon: <Utensils size={20} />,
+      savingsLevel: "low"
+    },
+    {
+      title: "Hospedagem em Quintas",
+      description: "Fique em quintas tradicionais (casas de campo) em vez de hotéis turísticos. Muitas oferecem café da manhã com produtos locais.",
+      icon: <Home size={20} />,
+      savingsLevel: "high"
+    }
+  ],
+  'azores': [
+    {
+      title: "Cartão Açores",
+      description: "Registre-se para o cartão Açores online antes de viajar para obter descontos em tours, restaurantes e lojas.",
+      icon: <Ticket size={20} />,
+      savingsLevel: "medium"
+    },
+    {
+      title: "Viaje Entre Ilhas de Barco",
+      description: "Quando possível, viaje entre ilhas próximas (como Faial-Pico-São Jorge) de balsa em vez de avião, economizando até 70%.",
+      icon: <Waves size={20} />,
+      savingsLevel: "high"
+    },
+    {
+      title: "Termas Gratuitas",
+      description: "Visite piscinas termais naturais gratuitas como Poça da Dona Beija à noite (depois das 20h) quando o ingresso é mais barato.",
+      icon: <Waves size={20} />,
+      savingsLevel: "medium"
+    },
+    {
+      title: "Tours em Grupo",
+      description: "Para atividades como observação de baleias, procure grupos no seu alojamento para dividir o custo do tour privado.",
+      icon: <Users size={20} />,
+      savingsLevel: "medium"
+    }
+  ]
+};
+
 const DestinationDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [destination, setDestination] = useState<Destination | null>(null);
@@ -396,6 +690,32 @@ const DestinationDetail = () => {
                   </div>
                 ))}
               </div>
+              
+              {/* Seasonal Events Section */}
+              <h3 className="text-xl font-display font-bold text-portugal-navy mb-6">
+                Quando Visitar: Eventos e Festivais
+              </h3>
+              {destinationEvents[destination.id] && (
+                <div className="mb-10">
+                  <SeasonalEvents 
+                    destination={destination.name} 
+                    events={destinationEvents[destination.id]} 
+                  />
+                </div>
+              )}
+              
+              {/* Budget Tips Section */}
+              <h3 className="text-xl font-display font-bold text-portugal-navy mb-6">
+                Economize em sua Viagem
+              </h3>
+              {budgetTips[destination.id] && (
+                <div className="mb-10">
+                  <BudgetTips 
+                    destination={destination.name} 
+                    tips={budgetTips[destination.id]} 
+                  />
+                </div>
+              )}
             </div>
             
             {/* Sidebar */}

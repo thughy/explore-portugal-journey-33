@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -6,7 +5,21 @@ import Footer from '@/components/Footer';
 import DestinationCard from '@/components/DestinationCard';
 import TravelTip from '@/components/TravelTip';
 import InteractiveMap from '@/components/InteractiveMap';
-import { Compass, Briefcase, CreditCard, Train, Utensils, SunMedium, ArrowRight } from 'lucide-react';
+import FAQ from '@/components/FAQ';
+import LanguageTips from '@/components/LanguageTips';
+import RegionalTips from '@/components/RegionalTips';
+import { 
+  Compass, 
+  Briefcase, 
+  CreditCard, 
+  Train, 
+  Utensils, 
+  SunMedium, 
+  ArrowRight, 
+  Globe,
+  HelpCircle,
+  MessageSquare
+} from 'lucide-react';
 
 const destinations = [
   {
@@ -149,6 +162,25 @@ const Index = () => {
         </div>
       </section>
       
+      {/* Regional Tips */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="inline-block text-portugal-terracotta font-medium mb-2">
+              Dicas Locais
+            </span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-portugal-navy mb-4">
+              Dicas Específicas por Região
+            </h2>
+            <p className="max-w-2xl mx-auto text-gray-600">
+              Conheça as particularidades de cada região e aproveite ao máximo sua visita com estas recomendações de quem conhece bem cada destino.
+            </p>
+          </div>
+          
+          <RegionalTips />
+        </div>
+      </section>
+      
       {/* Map */}
       <section id="map" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
@@ -165,6 +197,36 @@ const Index = () => {
           </div>
           
           <InteractiveMap />
+        </div>
+      </section>
+      
+      {/* Language Tips */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="inline-block text-portugal-terracotta font-medium mb-2">
+              <Globe size={16} className="inline mr-1" />
+              Comunicação
+            </span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-portugal-navy mb-4">
+              Expressões Úteis em Português
+            </h2>
+            <p className="max-w-2xl mx-auto text-gray-600">
+              Aprenda algumas frases e palavras essenciais em português para facilitar sua comunicação durante a viagem.
+            </p>
+          </div>
+          
+          <LanguageTips />
+          
+          <div className="text-center mt-8">
+            <a 
+              href="#"
+              className="inline-flex items-center text-portugal-terracotta hover:text-portugal-navy font-medium transition-colors"
+            >
+              Ver guia completo de português para viajantes
+              <ArrowRight size={16} className="ml-1" />
+            </a>
+          </div>
         </div>
       </section>
       
@@ -260,6 +322,41 @@ const Index = () => {
                   <ArrowRight size={16} className="ml-1" />
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* FAQ Section */}
+      <section id="faq" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="inline-block text-portugal-terracotta font-medium mb-2">
+              <HelpCircle size={16} className="inline mr-1" />
+              Perguntas Frequentes
+            </span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-portugal-navy mb-4">
+              Dúvidas Comuns
+            </h2>
+            <p className="max-w-2xl mx-auto text-gray-600">
+              Encontre respostas para as perguntas mais frequentes sobre viagens em Portugal.
+            </p>
+          </div>
+          
+          <FAQ />
+          
+          <div className="text-center mt-10">
+            <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+              <div className="flex items-center justify-center mb-4">
+                <MessageSquare size={24} className="text-portugal-terracotta mr-2" />
+                <h3 className="text-xl font-display font-bold text-portugal-navy">Ainda tem dúvidas?</h3>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Não encontrou a resposta que procurava? Entre em contato conosco e teremos prazer em ajudar com qualquer dúvida sobre sua viagem a Portugal.
+              </p>
+              <button className="px-6 py-2.5 bg-portugal-terracotta text-white rounded-full font-medium hover:bg-portugal-terracotta/90 transition-colors">
+                Fale Conosco
+              </button>
             </div>
           </div>
         </div>
