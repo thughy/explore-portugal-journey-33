@@ -1,8 +1,18 @@
 
-import React from 'react';
-import { PlayCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { PlayCircle, X } from 'lucide-react';
 
 const VideoShowcase = () => {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  
+  const playVideo = (videoSrc: string) => {
+    setActiveVideo(videoSrc);
+  };
+  
+  const closeVideo = () => {
+    setActiveVideo(null);
+  };
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
@@ -35,10 +45,36 @@ const VideoShowcase = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {videoThumbnails.map((video, index) => (
-            <VideoThumbnail key={index} {...video} />
+            <VideoThumbnail 
+              key={index} 
+              {...video} 
+              onClick={() => playVideo(video.videoSrc)}
+            />
           ))}
         </div>
       </div>
+
+      {/* Fullscreen Video Modal */}
+      {activeVideo && (
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+          <button 
+            onClick={closeVideo}
+            className="absolute top-6 right-6 bg-white/10 rounded-full p-2 text-white hover:bg-white/20 transition-colors"
+          >
+            <X size={24} />
+          </button>
+          <div className="w-full max-w-5xl aspect-video relative">
+            <video 
+              className="w-full h-full"
+              controls 
+              autoPlay
+              src={activeVideo}
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
@@ -48,11 +84,15 @@ interface VideoThumbnailProps {
   description: string;
   poster: string;
   videoSrc: string;
+  onClick: () => void;
 }
 
-const VideoThumbnail = ({ title, description, poster, videoSrc }: VideoThumbnailProps) => {
+const VideoThumbnail = ({ title, description, poster, videoSrc, onClick }: VideoThumbnailProps) => {
   return (
-    <div className="relative aspect-video rounded-xl overflow-hidden shadow-md group">
+    <div 
+      className="relative aspect-video rounded-xl overflow-hidden shadow-md group cursor-pointer"
+      onClick={onClick}
+    >
       <video
         className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
         poster={poster}
