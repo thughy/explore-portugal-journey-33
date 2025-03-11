@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, ImageOff } from 'lucide-react';
+import { ChevronDown, ImageOff, PlayCircle } from 'lucide-react';
 
 const Hero = () => {
   const [loaded, setLoaded] = useState(false);
@@ -68,8 +68,9 @@ const Hero = () => {
             <button className="px-8 py-3 bg-portugal-terracotta text-white rounded-full font-medium hover:bg-portugal-terracotta/90 transition-colors shadow-lg">
               Explore Destinations
             </button>
-            <button className="px-8 py-3 bg-white/10 backdrop-blur text-white rounded-full font-medium hover:bg-white/20 transition-colors border border-white/25">
-              Travel Guides
+            <button className="px-8 py-3 bg-white/10 backdrop-blur text-white rounded-full font-medium hover:bg-white/20 transition-colors border border-white/25 flex items-center">
+              <PlayCircle size={20} className="mr-2" />
+              Watch Videos
             </button>
           </div>
         </div>
