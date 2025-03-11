@@ -1,7 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin } from 'lucide-react';
+import { MapPin, ImageOff } from 'lucide-react';
 
 interface Destination {
   id: string;
@@ -18,13 +18,24 @@ const destinations: Destination[] = [
 ];
 
 const InteractiveMap = () => {
+  const [imageError, setImageError] = useState(false);
+
   return (
     <div className="relative w-full rounded-3xl overflow-hidden shadow-lg h-[70vh] md:h-[80vh]">
-      <img 
-        src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1920"
-        alt="Map of Portugal" 
-        className="w-full h-full object-cover" 
-      />
+      {imageError ? (
+        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100">
+          <ImageOff size={48} className="text-gray-400 mb-2" />
+          <p className="text-gray-500">Mapa indisponível</p>
+        </div>
+      ) : (
+        <img 
+          src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1920"
+          alt="Map of Portugal" 
+          className="w-full h-full object-cover"
+          onError={() => setImageError(true)}
+          loading="lazy" 
+        />
+      )}
       <div className="absolute inset-0 bg-black/10" />
       
       {destinations.map((destination) => (
